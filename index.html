@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Hero at top of page -->
+    <section class="hero is-small mb-3">
+        <div class="hero-body has-text-centered has-background-dark">
+            <p class="title has-text-white">
+                Weather Dashboard
+            </p>
+        </div>
+    </section>
+    <!-- Container for body content e.g. search, current weather, 5-day forecast -->
+    <div class="columns is-3">
+        <!-- Search panel -->
+        <nav class="panel column is-one-fifth">
+            <p class="panel-heading">
+                Search for a City
+            </p>
+            <div class="panel-block">
+                <p class="control has-icons-left">
+                    <input class="input" type="text" placeholder="City Name">
+                    <span class="icon is-left">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </span>
+                </p>
+            </div>
+            <a class="panel-block is-active">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                bulma
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                marksheet
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                minireset.css
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                jgthms.github.io
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                </span>
+                daniellowtw/infboard
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                </span>
+                mojs
+            </a>
+            <div class="panel-block is-justify-content-center">
+                <button class="button is-link is-outlined">
+                    Reset
+                </button>
+            </div>
+        </nav>
+        <!-- Container for weather display -->
+        <div class="column">
+            
+            <!-- Weather display area -->
+            <article class="message">
+                <div class="message-header has-background-link">
+                    <p>The City</p>
+                </div>
+                <div class="message-body">
+                Temperature<br>
+                Humidity<br>
+                Wind Speed<br>
+                UV Index
+                </div>
+            </article>
+            
+            <!-- container for forecast cards -->
+            <div class="columns is-multiline">
+                <div class="column is-full ml-2">
+                    <h1 class="title">5-Day forecast:</h1>
+                </div>
+                <!-- 5-day forecast area -->
+                <div class="column">
+                    <div class="columns">
+                        <div class="card column m-3 has-background-link has-text-white">
+                            <header class="card-header">
+                                <p id="day-1" class="card-header-title has-text-white">
+                                    Component
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card column m-3 has-background-link has-text-white">
+                            <header class="card-header">
+                                <p id="day-2" class="card-header-title has-text-white">
+                                    Component
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card column m-3 has-background-link has-text-white">
+                            <header class="card-header">
+                                <p id="day-3" class="card-header-title has-text-white">
+                                    Component
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card column m-3 has-background-link has-text-white">
+                            <header class="card-header">
+                                <p id="day-4" class="card-header-title has-text-white">
+                                    Component
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card column m-3 has-background-link has-text-white">
+                            <header class="card-header">
+                                <p id="day-5" class="card-header-title has-text-white">
+                                    Component
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
