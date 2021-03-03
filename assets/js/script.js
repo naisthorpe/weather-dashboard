@@ -19,7 +19,8 @@ var handleFormSubmit = function (event) {
     event.preventDefault();
 
     city = citySearchEl.val().toLowerCase();
-    citySearchEl.text("");
+
+    $("input[type='text'], textarea").val("");
 
     getApi();
 }
@@ -34,7 +35,7 @@ function getApi() {
             return response.json();
         })
         .then(function (data) {
-            //console.log(data);
+            console.log(data);
             
             var weatherIconCode = data.weather[0].icon;
 
@@ -179,12 +180,15 @@ function clearHistory() {
 var getButtonInfo = function(event) {
     event.stopPropagation();
     var element = event.target;
-    
+
+
     if (element.matches("button") === true) {
         var cityIndex = element.getAttribute("data-index");
         //console.log(cityIndex);
         city = storageNoDups[cityIndex];
         //console.log(city);
+
+        ;
 
         getApi();
     }
