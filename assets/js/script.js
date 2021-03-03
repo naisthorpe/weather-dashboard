@@ -72,8 +72,18 @@ function getApi() {
                     //console.log(data);
                     uvIndex.text(data.value);
 
-                    
+                    if (data.value <= 2.5) {
+                        uvIndex.attr("class", "uv-block uv-low");
+                    } else if (data.value <= 5.5) {
+                        uvIndex.attr("class", "uv-block uv-moderate");
+                    } else if (data.value <= 7.5) {
+                        uvIndex.attr("class", "uv-block uv-high");
+                    } else {
+                        uvIndex.attr("class", "uv-block uv-very-high");
+                    }
                 })
+
+            
 
         storageArray.push(data.name);
 
@@ -88,15 +98,9 @@ function getApi() {
         })
 }
 
-
-        
-
-
 var searchHistoryEl = $("#search-history");
 
 function renderSearchHistory() {
-
-    //var searchHistoryEl = $("#search-history");
 
     searchHistoryEl.empty();
     
@@ -111,8 +115,6 @@ function renderSearchHistory() {
 }
 
 function renderFutureForecast() {
-
-
 
     var cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
@@ -132,21 +134,18 @@ function renderFutureForecast() {
                 return response.json();
             })
             .then(function(data) {
-                console.log(data);
+                //console.log(data);
                 var weatherCardContainer = $("#weather-cards");
                 weatherCardContainer.empty();
-                console.log(data.daily.length);
+                //console.log(data.daily.length);
                 for (var i=0; i<5; i++) {
-                    // console.log(moment.unix(data.daily[i].dt).format("M/d/yyyy"));
-                    // console.log(data.daily[i].temp.day);
-                    // console.log(data.daily[i].humidity);
                     var weatherCard = document.createElement("div");
-                    weatherCard.setAttribute("class", "card-content column has-background-link m-3");
+                    weatherCard.setAttribute("class", "card is-justify-content-center column has-background-link m-3");
                     weatherCardContainer.append(weatherCard);
 
                     var weatherCardDate = document.createElement("div");
                     weatherCardDate.setAttribute("class", "has-text-white is-size-4")
-                    weatherCardDate.textContent = moment.unix(data.daily[i].dt).format("M/d/yyyy");
+                    weatherCardDate.textContent = moment.unix(data.daily[i].dt).format("M/D/yyyy");
                     weatherCard.append(weatherCardDate);
 
                     var weatherCardIcon = document.createElement("img");
@@ -166,8 +165,6 @@ function renderFutureForecast() {
                     
                 }
             }) 
-
-        
     })
 }
 
@@ -199,7 +196,6 @@ function init() {
     if (storedCities !== null) {
         storageNoDups = storedCities;
     }
-    
     
     city = "Charlotte";
     

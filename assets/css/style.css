@@ -1,3 +1,25 @@
-#clear-history {
-    margin-top: auto;
+.uv-block {
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 20%;
+}
+
+.uv-low {
+    background-color: green;
+    color: white;
+}
+
+.uv-moderate {
+    background-color: yellow;
+    color: black;
+}
+
+.uv-high {
+    background-color: orange;
+    color: black;
+}
+
+.uv-very-high {
+    background-color: red;
+    color: black;
 }

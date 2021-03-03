@@ -14,14 +14,14 @@
         <div class="hero-body has-text-centered has-background-dark">
             <p class="title has-text-white">
                 Weather Dashboard
-            </p>
+            </p>            
         </div>
     </section>
     <!-- Container for body content e.g. search, current weather, 5-day forecast -->
     <div class="columns is-3">
         <!-- Search panel -->
         <nav class="panel column is-one-fifth is-flex-direction-column">
-            <p class="panel-heading">
+            <p class="panel-heading has-background-info">
                 Search for a City
             </p>
             
@@ -49,10 +49,12 @@
             <article class="message">
                 <div class="message-body has-background-link has-text-white">
                     <span id="city-name" class="is-size-3">.....</span><br>
-                    Temperature: <span id="temp"></span><br>
-                    Humidity: <span id="humidity"></span><br>
-                    Wind Speed: <span id=wind-speed></span><br>
-                    UV Index: <span id="uv-index"></span>
+                    <strong>Temperature: </strong><span id="temp"></span><br>
+                    <strong>Humidity: </strong><span id="humidity"></span><br>
+                    <strong>Wind Speed: </strong><span id=wind-speed></span><br>
+                    <div class="is-flex-direction-row is-flex-wrap-wrap">
+                        <strong>UV Index: </strong><div id="uv-index"></div>
+                    </div>
                 </div>
             </article>
             
