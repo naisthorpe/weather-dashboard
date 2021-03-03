@@ -112,6 +112,8 @@ function renderSearchHistory() {
 
 function renderFutureForecast() {
 
+
+
     var cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
     fetch(cityUrl)
@@ -130,11 +132,38 @@ function renderFutureForecast() {
                 return response.json();
             })
             .then(function(data) {
-                //console.log(data);
+                console.log(data);
                 var weatherCardContainer = $("#weather-cards");
-                weatherCardContainer.append(data.daily[0].temp.day);
-                for (var i=0; i<data.length; i++) {
-                    console.log(data.daily[i].temp.day);
+                weatherCardContainer.empty();
+                console.log(data.daily.length);
+                for (var i=0; i<5; i++) {
+                    // console.log(moment.unix(data.daily[i].dt).format("M/d/yyyy"));
+                    // console.log(data.daily[i].temp.day);
+                    // console.log(data.daily[i].humidity);
+                    var weatherCard = document.createElement("div");
+                    weatherCard.setAttribute("class", "card-content column has-background-link m-3");
+                    weatherCardContainer.append(weatherCard);
+
+                    var weatherCardDate = document.createElement("div");
+                    weatherCardDate.setAttribute("class", "has-text-white is-size-4")
+                    weatherCardDate.textContent = moment.unix(data.daily[i].dt).format("M/d/yyyy");
+                    weatherCard.append(weatherCardDate);
+
+                    var weatherCardIcon = document.createElement("img");
+                    var weatherIconCode = data.daily[i].weather[0].icon;
+                    weatherCardIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`);
+                    weatherCard.append(weatherCardIcon);
+
+                    var weatherCardTemp = document.createElement("div");
+                    weatherCardTemp.setAttribute("class", "has-text-white");
+                    weatherCardTemp.textContent = "Temp: " + data.daily[i].temp.day + " °F";
+                    weatherCard.append(weatherCardTemp);
+
+                    var weatherCardHumidity = document.createElement("div");
+                    weatherCardHumidity.setAttribute("class", "has-text-white");
+                    weatherCardHumidity.textContent = "Humidity: " + data.daily[i].humidity + " %";
+                    weatherCard.append(weatherCardHumidity);
+                    
                 }
             }) 
 
