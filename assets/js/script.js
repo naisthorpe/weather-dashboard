@@ -1,25 +1,22 @@
-var city = "Charlotte";
-
+var city = "charlotte";
 var apiKey = "b4e8ac44b0c5c42611f58c1a12a6a7b6";
-
 var citySearchEl = $("#city-search");
-
 var citySearchBtn = $("#city-btn");
-
+var clearHistoryBtn = $("#clear-history");
 var requestCityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
-
-
 var storageArray = [];
+var storageNoDups = [];
 
-
-console.log(storageArray);
-
-citySearchBtn.on("submit", handleFormSubmit);
+function checkForDuplicates() {
+    for (var i=0; i<storageArray.length; i++) {
+        if (storageNoDups.indexOf(storageArray[i]) == -1) {
+            storageNoDups.push(storageArray[i]);
+        }
+    }
+}
 
 var handleFormSubmit = function (event) {
     event.preventDefault();
-
-    citySearchEl.text("");
 
     city = citySearchEl.val().toLowerCase();
     citySearchEl.text("");
@@ -37,10 +34,20 @@ function getApi() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            //console.log(data);
+            
+            var weatherIconCode = data.weather[0].icon;
 
-            var city = $("#city-name");
-            city.text(data.name);
+            var weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+
+            var weatherIcon = document.createElement("img");
+            weatherIcon.setAttribute("src", weatherIconUrl);
+
+            var cityDate = moment.unix(data.dt).format("M/d/yyy");
+
+            var cityText = $("#city-name");
+            cityText.text(data.name + ' ' + `(${cityDate}) `);
+            cityText.append(weatherIcon);
 
             var temp = $("#temp");
             temp.text(data.main.temp + " °F");
@@ -55,8 +62,6 @@ function getApi() {
             var lon = data.coord.lon;
 
             var uvIndex = $("#uv-index");
-            
-            
 
             var uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
             fetch (uvIndexUrl)
@@ -64,58 +69,112 @@ function getApi() {
                     return response.json();
                 })
                 .then(function(data) {
-                    console.log(data);
+                    //console.log(data);
                     uvIndex.text(data.value);
+
+                    
                 })
 
-            storageArray.push(data.name);
+        storageArray.push(data.name);
 
-            localStorage.setItem("cities", JSON.stringify(storageArray));
-        
-            renderSearchHistory();
+        checkForDuplicates();
 
+        localStorage.setItem("cities", JSON.stringify(storageNoDups));
+    
+        renderSearchHistory();
+
+        renderFutureForecast();
             
-
-            
-        });
-
-
-        
+        })
 }
 
 
+        
+
+
+var searchHistoryEl = $("#search-history");
+
 function renderSearchHistory() {
 
-    var searchHistoryEl = $("#search-history");
+    //var searchHistoryEl = $("#search-history");
 
     searchHistoryEl.empty();
     
-    for (var i=0; i<storageArray.length; i++) {
+    for (var i=0; i<storageNoDups.length; i++) {
 
         var searchText = document.createElement("button");
         searchText.setAttribute("class", "control m-1 has-text-centered is-justify-content-center");
-        
-        searchText.textContent = storageArray[i];
+        searchText.setAttribute("data-index", [i]);
+        searchText.textContent = storageNoDups[i];
         searchHistoryEl.append(searchText);
     }
 }
 
-function clearHistory() {
-    localStorage.clear();
-    storageArray = [];
-    init();
+function renderFutureForecast() {
+
+    var cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+
+    fetch(cityUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        //console.log(data);
+        var lat = data.coord.lat;
+        var lon = data.coord.lon;
+
+        var futureForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,hourly,minutely&appid=${apiKey}`;
+            
+        fetch (futureForecastUrl)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                //console.log(data);
+                var weatherCardContainer = $("#weather-cards");
+                weatherCardContainer.append(data.daily[0].temp.day);
+                for (var i=0; i<data.length; i++) {
+                    console.log(data.daily[i].temp.day);
+                }
+            }) 
+
+        
+    })
 }
 
 
+function clearHistory() {
+    localStorage.clear();
+    storageArray = [];
+    storageNoDups = [];
+    init();
+}
+
+var getButtonInfo = function(event) {
+    event.stopPropagation();
+    var element = event.target;
+    
+    if (element.matches("button") === true) {
+        var cityIndex = element.getAttribute("data-index");
+        //console.log(cityIndex);
+        city = storageNoDups[cityIndex];
+        //console.log(city);
+
+        getApi();
+    }
+}
 
 function init() {
     var storedCities = JSON.parse(localStorage.getItem("cities"));
 
     if (storedCities !== null) {
-        storageArray = storedCities;
+        storageNoDups = storedCities;
     }
     
     
+    city = "Charlotte";
+    
+    getApi();
 
     renderSearchHistory();
 }
@@ -125,7 +184,7 @@ init();
 
 citySearchBtn.on("click", handleFormSubmit);
 
-var clearHistoryBtn = $("#clear-history");
-
 clearHistoryBtn.on("click", clearHistory);
+
+searchHistoryEl.on("click", getButtonInfo);
 
