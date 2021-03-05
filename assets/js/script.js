@@ -141,7 +141,7 @@ function renderFutureForecast() {
                 var weatherCardContainer = $("#weather-cards");
                 weatherCardContainer.empty();
                 //console.log(data.daily.length);
-                for (var i=1; i<6; i++) {
+                for (var i=0; i<5; i++) {
                     var weatherCard = document.createElement("div");
                     weatherCard.setAttribute("class", "card column has-background-link m-3");
                     weatherCardContainer.append(weatherCard);
