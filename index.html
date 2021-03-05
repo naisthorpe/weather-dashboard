@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     </head>
-<body>
+<body class="has-backgroun-grey">
     <!-- Hero at top of page -->
     <section class="hero is-small mb-3">
         <div class="hero-body has-text-centered has-background-dark">
-            <p class="title has-text-white">
+            <p class="title has-text-white is-size-2">
                 Weather Dashboard
             </p>            
         </div>
     </section>
     <!-- Container for body content e.g. search, current weather, 5-day forecast -->
-    <div class="columns is-3">
+    <div class="columns is-3 m-3 p-0">
         <!-- Search panel -->
-        <nav class="panel column is-one-fifth is-flex-direction-column">
-            <p class="panel-heading has-background-info">
+        <nav class="panel p-0 mb-0 column is-one-fifth is-flex-direction-column has-background-grey-light">
+            <p class="panel-heading m-0 has-background-link has-text-white">
                 Search for a City
             </p>
             
@@ -33,7 +33,7 @@
             </div>
             
             <!-- add past searches here -->
-            <div id="search-history" class="panel-block is-multiline columns is-justify-content-center">
+            <div id="search-history" class="panel-block is-multiline columns is-justify-content-center is-align-content-center">
             </div>
             
             <div class="panel-block is-justify-content-center">
@@ -43,12 +43,14 @@
             </div>
         </nav>
         <!-- Container for weather display -->
-        <div class="column">
+        <div class="column pt-0">
             
             <!-- Weather display area -->
-            <article class="message">
-                <div class="message-body has-background-link has-text-white">
-                    <span id="city-name" class="is-size-3">.....</span><br>
+            <article class="columns m-1 card">
+                <div class="column has-background-link has-text-white">
+                    <div id="city-name-line" class="is-flex">
+                        <span id="city-name" class="is-size-2 is-align-self-center">.....</span>
+                    </div>
                     <strong>Temperature: </strong><span id="temp"></span><br>
                     <strong>Humidity: </strong><span id="humidity"></span><br>
                     <strong>Wind Speed: </strong><span id=wind-speed></span><br>
@@ -60,12 +62,14 @@
             
             <!-- container for forecast cards -->
             <div class="columns is-multiline">
-                <div class="column is-full ml-2">
+                <div class="column is-full ml-2 mt-2">
                     <h1 class="title">5-Day forecast:</h1>
                 </div>
                 <!-- 5-day forecast area -->
                 <div class="column">
-                    <div id="weather-cards" class="columns"></div>
+                    <div id="weather-cards" class="columns is-flex-direction-row">
+                        <!-- js will create weather cards here -->
+                    </div>
                 </div>
             </div>
     </div>

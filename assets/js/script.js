@@ -48,7 +48,9 @@ function getApi() {
 
             var cityText = $("#city-name");
             cityText.text(data.name + ' ' + `(${cityDate}) `);
-            cityText.append(weatherIcon);
+            
+            var cityNameLine = $("#city-name-line");
+            cityNameLine.append(weatherIcon);
 
             var temp = $("#temp");
             temp.text(data.main.temp + " °F");
@@ -139,28 +141,33 @@ function renderFutureForecast() {
                 var weatherCardContainer = $("#weather-cards");
                 weatherCardContainer.empty();
                 //console.log(data.daily.length);
-                for (var i=0; i<5; i++) {
+                for (var i=1; i<6; i++) {
                     var weatherCard = document.createElement("div");
-                    weatherCard.setAttribute("class", "card is-justify-content-center column has-background-link m-3");
+                    weatherCard.setAttribute("class", "card column has-background-link m-3");
                     weatherCardContainer.append(weatherCard);
 
                     var weatherCardDate = document.createElement("div");
-                    weatherCardDate.setAttribute("class", "has-text-white is-size-4")
+                    weatherCardDate.setAttribute("class", "has-text-white has-text-centered is-size-4")
                     weatherCardDate.textContent = moment.unix(data.daily[i].dt).format("M/D/yyyy");
                     weatherCard.append(weatherCardDate);
 
+                    var weatherIconContainer = document.createElement("div");
+                    weatherIconContainer.setAttribute("class", "is-flex is-justify-content-center");
+                    weatherCard.append(weatherIconContainer);
+
                     var weatherCardIcon = document.createElement("img");
                     var weatherIconCode = data.daily[i].weather[0].icon;
+                    weatherCardIcon.setAttribute("class", "");
                     weatherCardIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`);
-                    weatherCard.append(weatherCardIcon);
+                    weatherIconContainer.append(weatherCardIcon);
 
                     var weatherCardTemp = document.createElement("div");
-                    weatherCardTemp.setAttribute("class", "has-text-white");
+                    weatherCardTemp.setAttribute("class", "has-text-white has-text-centered");
                     weatherCardTemp.textContent = "Temp: " + data.daily[i].temp.day + " °F";
                     weatherCard.append(weatherCardTemp);
 
                     var weatherCardHumidity = document.createElement("div");
-                    weatherCardHumidity.setAttribute("class", "has-text-white");
+                    weatherCardHumidity.setAttribute("class", "has-text-white has-text-centered");
                     weatherCardHumidity.textContent = "Humidity: " + data.daily[i].humidity + " %";
                     weatherCard.append(weatherCardHumidity);
                     
