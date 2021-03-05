@@ -46,11 +46,11 @@ function getApi() {
 
             var cityDate = moment.unix(data.dt).format("M/d/yyy");
 
+            
+
             var cityText = $("#city-name");
             cityText.text(data.name + ' ' + `(${cityDate}) `);
-            
-            var cityNameLine = $("#city-name-line");
-            cityNameLine.append(weatherIcon);
+            cityText.append(weatherIcon);
 
             var temp = $("#temp");
             temp.text(data.main.temp + " °F");
@@ -157,7 +157,7 @@ function renderFutureForecast() {
 
                     var weatherCardIcon = document.createElement("img");
                     var weatherIconCode = data.daily[i].weather[0].icon;
-                    weatherCardIcon.setAttribute("class", "");
+                    weatherCardIcon.setAttribute("class", "weather-icon");
                     weatherCardIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`);
                     weatherIconContainer.append(weatherCardIcon);
 
