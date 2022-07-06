@@ -44,7 +44,15 @@ function getApi() {
             var weatherIcon = document.createElement("img");
             weatherIcon.setAttribute("src", weatherIconUrl);
 
-            var cityDate = moment.unix(data.dt).format("M/d/yyy");
+            var unixStamp = data.dt;
+            var date = new Date(unixStamp * 1000);
+            var dayNum = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            var cityDate = month + '/' + dayNum + '/' + year;
+
+            console.log(data);
 
             
 
@@ -141,7 +149,7 @@ function renderFutureForecast() {
                 var weatherCardContainer = $("#weather-cards");
                 weatherCardContainer.empty();
                 //console.log(data.daily.length);
-                for (var i=0; i<5; i++) {
+                for (var i=1; i<6; i++) {
                     var weatherCard = document.createElement("div");
                     weatherCard.setAttribute("class", "card column has-background-link m-3");
                     weatherCardContainer.append(weatherCard);
